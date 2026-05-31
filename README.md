@@ -204,6 +204,11 @@ Assignment ini akan dinilai berdasarkan 5 kriteria utama:
 4. Update README jika ada setup tambahan yang diperlukan
 5. Push code ke repository GitHub
 6. Deploy ke platform pilihan (Vercel/Netlify) - **BONUS POINT**
+   
+##  Live Deployment Vercel
+Aplikasi ini telah berhasil di-deploy ke server produksi secara global:
+🔗 [Live Demo Website](https://challenge-9-afrizal090477-max.vercel.app)
+
 
 ## Bantuan & Pertanyaan
 
