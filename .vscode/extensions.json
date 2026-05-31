@@ -8,7 +8,6 @@
     "dsznajder.es7-react-js-snippets",
     "styled-components.vscode-styled-components",
     "christian-kohler.path-intellisense",
-    "ms-vscode.vscode-typescript-next",
-    "mattpocock.ts-error-translator"
+    "ms-vscode.vscode-typescript-next"
   ]
 }
