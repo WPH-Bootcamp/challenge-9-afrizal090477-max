@@ -15,14 +15,37 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   
   const mainGenre = movie.genres?.[0]?.name || 'Action';
-  const ageLimit = movie.adult ? '21+' : '13+';
   const trailerVideo = movie.videos?.results?.find((v) => v.type === 'Trailer' && v.site === 'YouTube');
 
+  // 🎯 CALIBRATION FIX: Logika Otomatis Menentukan Age Limit Berdasarkan Deteksi Array Genre Film
+  const getAgeLimit = (): string => {
+    if (movie.adult) return '21+';
+
+    // Ambil semua nama genre ke dalam array string huruf kecil agar pencarian string presisi
+    const genreNames = movie.genres?.map((g) => g.name.toLowerCase()) || [];
+
+    // 1. Kategori Dewasa Berat / Konten Intens (Horror, Thriller, Crime) -> 21+
+    if (genreNames.some((name) => ['horror', 'thriller', 'crime'].includes(name))) {
+      return '21+';
+    }
+
+    // 2. Kategori Anak-Anak & Keluarga (Animation, Family) -> SU (Semua Umur) atau 13+ Tergantung Aturan Desain
+    if (genreNames.some((name) => ['animation', 'family'].includes(name))) {
+      return '13+'; // Bisa kamu ubah jadi 'SU' jika ingin melonggarkan rating anak-anak
+    }
+
+    // 3. Standar Fallback untuk Drama, Action, Sci-Fi, dll
+    return '13+';
+  };
+
+  const ageLimit = getAgeLimit();
+
   return (
+    // KONTAINER UTAMA: Mengatur poster di kiri dan seluruh konten di kanan pada layar desktop (md:flex-row)
     <div className="w-full max-w-[361px] md:max-w-[1160px] h-auto md:h-[384px] flex flex-col md:flex-row gap-6 md:gap-8 items-start mx-auto md:mx-0">
       
-      {/* POSTER FILM */}
-      <div className="w-[116px] md:w-[260px] h-[171px] md:h-[384px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl shrink-0">
+      {/* ─── 1. POSTER FILM (DESKTOP VERSION) ─── */}
+      <div className="w-[260px] h-[384px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl shrink-0 hidden md:block">
         <img
           src={getImageUrl(movie.poster_path, 'w500')}
           alt={movie.title}
@@ -30,15 +53,34 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
         />
       </div>
 
-      {/* AREA DATA TEKS DAN KONTEN */}
-      <div className="w-full md:w-[868px] h-auto md:h-[348px] flex flex-col gap-6 justify-between pt-0 md:pt-4">
+      {/* ─── 2. REPLIKA POSTER + JUDUL (KHUSUS MOBILE VERSION) ─── */}
+      <div className="flex flex-row items-start gap-4 w-full md:hidden">
+        <div className="w-[116px] h-[171px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl shrink-0">
+          <img
+            src={getImageUrl(movie.poster_path, 'w500')}
+            alt={movie.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex flex-col gap-1 pt-1.5 w-full min-w-0">
+          <h1 className="text-xl font-bold tracking-tight text-[#FDFDFD] font-display leading-tight line-clamp-2">
+            {movie.title}
+          </h1>
+          <div className="flex items-center gap-2 text-xs text-[#A4A7AE] font-normal font-body mt-0.5">
+            <Calendar className="w-3.5 h-3.5 text-[#FDFDFD] shrink-0" />
+            <span className="truncate">{formatDate(movie.release_date)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full md:w-[868px] h-auto md:h-full flex flex-col gap-6 md:justify-between pt-0 md:pt-1">
         
-        {/* Grup Judul dan Tanggal */}
-        <div className="flex flex-col gap-2">
+        {/* GRUP JUDUL DAN TANGGAL (HANYA MUNCUL DI DESKTOP AGAR TIDAK DUPLIKAT DENGAN MOBILE) */}
+        <div className="hidden md:flex flex-col gap-2">
           <h1 className="text-xl md:text-[40px] lg:text-[48px] font-bold tracking-tight md:tracking-[-2%] text-[#FDFDFD] font-display leading-tight">
             {movie.title}
           </h1>
-          <div className="flex items-center gap-2 text-xs md:text-sm text-[#A4A7AE] font-normal font-body h-[30px]">
+          <div className="flex items-center gap-2 text-xs md:text-sm text-[#A4A7AE] font-normal font-body h-auto md:h-[30px]">
             <Calendar className="w-4 h-4 md:w-5 md:h-5 text-[#FDFDFD]" />
             <span>{formatDate(movie.release_date)}</span>
           </div>
@@ -49,7 +91,7 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
           {trailerVideo ? (
             <Dialog open={isTrailerOpen} onOpenChange={setIsTrailerOpen}>
               <DialogTrigger asChild>
-                <Button variant="redFigma" className="w-[200px] md:w-[220px] h-11 md:h-[52px] font-semibold text-sm rounded-full gap-3 cursor-pointer">
+                <Button variant="redFigma" className="w-[301px] md:w-[220px] h-11 md:h-[52px] font-semibold text-sm rounded-full gap-3 cursor-pointer">
                   <span>Watch Trailer</span>
                   <div className="w-5 h-5 md:w-[28px] md:h-[28px] rounded-full bg-white flex items-center justify-center shrink-0">
                     <Play className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 fill-[#B91C1C] text-[#B91C1C] ml-[1.5px] md:ml-[2px]" />
@@ -82,8 +124,7 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
           </button>
         </div>
 
-        {/* TIGA BOKS INFO UTAMA  */}
-        
+        {/* TIGA BOKS DATA STATISTIK */}
         <div className="grid grid-cols-3 md:flex md:flex-row gap-3 md:gap-5 w-full">
           {[
             { 
@@ -114,6 +155,7 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
         </div>
 
       </div>
+
     </div>
   );
 }
