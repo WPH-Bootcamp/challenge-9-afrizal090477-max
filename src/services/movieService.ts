@@ -1,21 +1,48 @@
 import api from '@/lib/axios';
-// import { Movie, MovieResponse } from '@/types/movie';
-
-// TODO: Create service functions to fetch data from TMDB API
-// Reference: https://developer.themoviedb.org/reference/intro/getting-started
+import type { MovieResponse, MovieDetail } from '@/types/movie';
 
 export const movieService = {
-  // TODO: Implement getPopularMovies function
-  // Endpoint: GET /movie/popular
+  // Mengambil daftar film terpopuler
+  getPopularMovies: async (page = 1): Promise<MovieResponse> => {
+    const { data } = await api.get<MovieResponse>('/movie/popular', {
+      params: { page },
+    });
+    return data;
+  },
 
-  // TODO: Implement getNowPlayingMovies function
-  // Endpoint: GET /movie/now_playing
+  // Mengambil daftar film yang sedang tayang di bioskop
+  getNowPlayingMovies: async (page = 1): Promise<MovieResponse> => {
+    const { data } = await api.get<MovieResponse>('/movie/now_playing', {
+      params: { page },
+    });
+    return data;
+  },
 
-  // TODO: Implement getMovieDetails function
-  // Endpoint: GET /movie/{movie_id}
+  // Mengambil detail film lengkap beserta cast, video/trailer, dan rekomendasi film sejenis
+  getMovieDetails: async (movieId: string | number): Promise<MovieDetail> => {
+    const { data } = await api.get<MovieDetail>(`/movie/${movieId}`, {
+      params: {
+        append_to_response: 'credits,videos,similar',
+      },
+    });
+    return data;
+  },
 
-  // TODO: Implement searchMovies function
-  // Endpoint: GET /search/movie
+  // Mencari film berdasarkan kata kunci (query)
+  searchMovies: async (query: string, page = 1): Promise<MovieResponse> => {
+    const trimmedQuery = query.trim();
+    
+    // Jika query kosong, kembalikan struktur respons kosong bawaan TMDB agar tidak crash
+    if (!trimmedQuery) {
+      return { page: 1, results: [], total_pages: 0, total_results: 0 };
+    }
 
-  // TODO: Add more endpoints as needed
+    const { data } = await api.get<MovieResponse>('/search/movie', {
+      params: { 
+        query: trimmedQuery, 
+        page 
+      },
+    });
+    return data;
+  },
 };
