@@ -59,7 +59,7 @@ export interface Video {
   published_at: string;
 }
 
-// Interface gabungan lengkap untuk Movie Detail Page (Satu-satunya MovieDetail yang sah)
+// Interface gabungan lengkap untuk Movie Detail Page
 export interface MovieDetail extends Omit<Movie, 'genre_ids'> {
   genres: Genre[];
   budget: number;
@@ -78,7 +78,7 @@ export interface MovieDetail extends Omit<Movie, 'genre_ids'> {
     results: Movie[];
   };
   
-  /* ─── FITUR TAMBAHAN UNTUK FIGMA HERO BANNER ─── */
+  /*  FITUR TAMBAHAN UNTUK FIGMA HERO BANNER */
   backdropPath?: string;  
   trailerUrl?: string;    
 }

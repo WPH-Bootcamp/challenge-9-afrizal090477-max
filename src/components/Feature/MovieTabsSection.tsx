@@ -12,7 +12,6 @@ interface MovieTabsSectionProps {
 export default function MovieTabsSection({ movie, topCast, similarMovies }: MovieTabsSectionProps) {
   return (
     <Tabs defaultValue="overview" className="w-full max-w-[1160px] mt-8">
-      {/* Tab Header dengan Border bawah yang tajam */}
       <TabsList className="bg-transparent border-b border-zinc-900 rounded-none w-full justify-start p-0 h-auto gap-8 mb-8">
         <TabsTrigger 
           value="overview" 
@@ -28,7 +27,7 @@ export default function MovieTabsSection({ movie, topCast, similarMovies }: Movi
         </TabsTrigger>
       </TabsList>
 
-      {/* TAB 1: OVERVIEW & CAST */}
+      {/* OVERVIEW & CAST */}
       <TabsContent value="overview" className="flex flex-col gap-10 focus-visible:outline-none animate-in fade-in duration-300">
         <div className="w-full flex flex-col gap-2">
           <h2 className="text-xl font-bold tracking-[-2%] text-[#FDFDFD] font-display">Overview</h2>
@@ -50,7 +49,7 @@ export default function MovieTabsSection({ movie, topCast, similarMovies }: Movi
         </div>
       </TabsContent>
 
-      {/* TAB 2: SIMILAR MOVIES */}
+      {/* SIMILAR MOVIES */}
       <TabsContent value="similar" className="focus-visible:outline-none animate-in fade-in duration-300">
         <div className="flex flex-col gap-6 w-full">
           {similarMovies.length > 0 ? (

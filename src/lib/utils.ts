@@ -1,14 +1,10 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-// Utility function for merging Tailwind classes
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-
-// Hint: TMDB returns relative paths, you need to construct full image URLs
-// Reference: https://developer.themoviedb.org/docs/image-basics
 
 export function getImageUrl(path: string | null | undefined, size: string = 'w500'): string {
   // Use VITE_TMDB_IMAGE_BASE_URL from environment variables
@@ -24,12 +20,6 @@ export function getImageUrl(path: string | null | undefined, size: string = 'w50
 }
 
 
-// Examples: formatDate, formatRuntime, etc.
-
-/**
- * Memformat string tanggal dari TMDB (YYYY-MM-DD) menjadi format lokal Indonesia (DD MMMM YYYY)
- * Contoh: "2026-05-26" -> "26 Mei 2026"
- */
 export function formatDate(dateString: string | null | undefined): string {
   if (!dateString) return 'N/A';
   
@@ -43,10 +33,6 @@ export function formatDate(dateString: string | null | undefined): string {
   });
 }
 
-/**
- * Mengonversi durasi menit murni dari TMDB menjadi format Jam & Menit
- * Contoh: 142 -> "2h 22m"
- */
 export function formatRuntime(minutes: number | null | undefined): string {
   if (!minutes || minutes <= 0) return 'N/A';
   

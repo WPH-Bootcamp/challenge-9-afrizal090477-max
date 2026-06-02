@@ -17,34 +17,24 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
   const mainGenre = movie.genres?.[0]?.name || 'Action';
   const trailerVideo = movie.videos?.results?.find((v) => v.type === 'Trailer' && v.site === 'YouTube');
 
-  // 🎯 CALIBRATION FIX: Logika Otomatis Menentukan Age Limit Berdasarkan Deteksi Array Genre Film
+  
   const getAgeLimit = (): string => {
     if (movie.adult) return '21+';
 
-    // Ambil semua nama genre ke dalam array string huruf kecil agar pencarian string presisi
     const genreNames = movie.genres?.map((g) => g.name.toLowerCase()) || [];
-
-    // 1. Kategori Dewasa Berat / Konten Intens (Horror, Thriller, Crime) -> 21+
     if (genreNames.some((name) => ['horror', 'thriller', 'crime'].includes(name))) {
       return '21+';
     }
-
-    // 2. Kategori Anak-Anak & Keluarga (Animation, Family) -> SU (Semua Umur) atau 13+ Tergantung Aturan Desain
     if (genreNames.some((name) => ['animation', 'family'].includes(name))) {
-      return '13+'; // Bisa kamu ubah jadi 'SU' jika ingin melonggarkan rating anak-anak
+      return '13+'; 
     }
-
-    // 3. Standar Fallback untuk Drama, Action, Sci-Fi, dll
     return '13+';
   };
 
   const ageLimit = getAgeLimit();
 
   return (
-    // KONTAINER UTAMA: Mengatur poster di kiri dan seluruh konten di kanan pada layar desktop (md:flex-row)
     <div className="w-full max-w-[361px] md:max-w-[1160px] h-auto md:h-[384px] flex flex-col md:flex-row gap-6 md:gap-8 items-start mx-auto md:mx-0">
-      
-      {/* ─── 1. POSTER FILM (DESKTOP VERSION) ─── */}
       <div className="w-[260px] h-[384px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl shrink-0 hidden md:block">
         <img
           src={getImageUrl(movie.poster_path, 'w500')}
@@ -53,7 +43,7 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
         />
       </div>
 
-      {/* ─── 2. REPLIKA POSTER + JUDUL (KHUSUS MOBILE VERSION) ─── */}
+      {/* REPLIKA POSTER + JUDUL (KHUSUS MOBILE VERSION) */}
       <div className="flex flex-row items-start gap-4 w-full md:hidden">
         <div className="w-[116px] h-[171px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl shrink-0">
           <img
@@ -124,7 +114,6 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
           </button>
         </div>
 
-        {/* TIGA BOKS DATA STATISTIK */}
         <div className="grid grid-cols-3 md:flex md:flex-row gap-3 md:gap-5 w-full">
           {[
             { 

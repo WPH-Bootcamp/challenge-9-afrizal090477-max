@@ -56,7 +56,7 @@ export const useSearchMovies = (query: string, page = 1) => {
   return useQuery<MovieResponse>({
     queryKey: ['movies', 'search', trimmedQuery, page],
     queryFn: () => movieService.searchMovies(trimmedQuery, page),
-    enabled: trimmedQuery.length >= 2, // Mencegah hit API jika ketikan user terlalu pendek
+    enabled: trimmedQuery.length >= 2, 
     staleTime: 1000 * 60 * 1, // Untuk search, berikan cache lebih pendek (1 menit) agar dinamis
     placeholderData: keepPreviousData,
   });

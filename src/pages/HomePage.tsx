@@ -16,7 +16,7 @@ export default function Home() {
 
   const isSearching = searchQuery.trim().length >= 2;
 
-  // ─── DATA FETCHING ───
+  // DATA FETCHING 
   const { data: popularData, isLoading: isLoadingPopular, isError: isErrorPopular } = usePopularMovies(1);
   const { 
     data: infiniteData, 
@@ -125,13 +125,12 @@ export default function Home() {
         
         /* TAMPILAN NORMAL MULTI-SECTION (HOME) */
         <div className="space-y-16 pb-20 pt-0">
-          
           {/* Spanduk Hero Utama */}
           {heroMovieDetail && (
             <HeroSection movie={heroMovieDetail} />
           )}
 
-          {/* ─── SECTION 1: TRENDING NOW ─── */}
+          {/* SECTION TRENDING NOW  */}
           <div className="w-full max-w-[1440px] mx-auto pl-4 md:pl-12 lg:pl-[140px] pr-0 flex flex-col gap-[24px] md:gap-[32px] relative group/section pt-4 md:pt-8">
             
             <h2 className="text-[24px] md:text-[32px] font-bold tracking-tight text-[#FDFDFD]">
@@ -185,13 +184,12 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ─── SECTION 2: NEW RELEASE GRID ─── */}
+          {/* SECTION NEW RELEASE GRID */}
           <div className="w-full max-w-[1440px] mx-auto px-4 md:px-12 lg:px-[140px] flex flex-col gap-[24px] md:gap-[32px] relative mt-2">
-            
             <h2 className="text-[24px] md:text-[32px] font-bold tracking-tight text-[#FDFDFD]">
               New Release
             </h2>
-            
+
             <div className="w-full">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-[16px] md:gap-x-[20px] gap-y-[24px] md:gap-y-[32px]">
                 {displayNewReleases.map((movie) => (

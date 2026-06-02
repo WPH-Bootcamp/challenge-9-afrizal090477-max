@@ -22,7 +22,7 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ─── LOGO TANSTACK DEVTOOLS AUTOMATIC TOGGLE ───
+  // ─── LOGO TANSTACK DEVTOOLS AUTOMATIC TOGGLE
   useEffect(() => {
     const devtoolsPanel = document.querySelector('.tsqd-parent-container') || 
                           document.querySelector('[id^="tanstack-query-devtools"]');
@@ -38,7 +38,6 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
 
   return (
     <>
-      {/* ─── HEADER NAVBAR DESKTOP & MOBILE ─── */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 w-full h-[90px] flex items-center transition-all duration-300 ${
           isScrolled 
@@ -177,7 +176,6 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
         </div>
       )}
 
-      {/* MOBILE NAVIGATION DRAWER */}
       <div className={`fixed inset-0 bg-black/60 z-50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMenuOpen(false)} />
       <div className={`fixed top-0 right-0 h-full w-full bg-[#000000] z-50 transition-transform duration-300 transform md:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="w-full h-[90px] px-6 flex items-center justify-between border-b border-zinc-900/50">

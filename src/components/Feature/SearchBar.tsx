@@ -1,4 +1,4 @@
-import { useForm, useWatch } from 'react-hook-form'; // 👈 Tambahkan useWatch di sini
+import { useForm, useWatch } from 'react-hook-form'; 
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
@@ -22,7 +22,7 @@ export default function SearchBar({ onSearch, initialValue = '' }: SearchBarProp
     register,
     handleSubmit,
     setValue,
-    control, // 👈 Ambil control dari useForm
+    control, 
     formState: { errors },
   } = useForm<SearchFormValues>({
     resolver: zodResolver(searchSchema),

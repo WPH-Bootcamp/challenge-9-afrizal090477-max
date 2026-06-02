@@ -2,7 +2,6 @@ import api from '@/lib/axios';
 import type { MovieResponse, MovieDetail } from '@/types/movie';
 
 export const movieService = {
-  // Mengambil daftar film terpopuler
   getPopularMovies: async (page = 1): Promise<MovieResponse> => {
     const { data } = await api.get<MovieResponse>('/movie/popular', {
       params: { page },
@@ -10,7 +9,6 @@ export const movieService = {
     return data;
   },
 
-  // Mengambil daftar film yang sedang tayang di bioskop
   getNowPlayingMovies: async (page = 1): Promise<MovieResponse> => {
     const { data } = await api.get<MovieResponse>('/movie/now_playing', {
       params: { page },
@@ -18,7 +16,7 @@ export const movieService = {
     return data;
   },
 
-  // Mengambil detail film lengkap beserta cast, video/trailer, dan rekomendasi film sejenis
+
   getMovieDetails: async (movieId: string | number): Promise<MovieDetail> => {
     const { data } = await api.get<MovieDetail>(`/movie/${movieId}`, {
       params: {
