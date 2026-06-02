@@ -9,7 +9,7 @@ import Layout from '@/components/Layout/Layout';
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes>git 
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/movie/:id" element={<MovieDetailPage />} />
