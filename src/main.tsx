@@ -10,8 +10,6 @@ import App from './App.tsx';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // TODO: Configure default query options
-      // Examples: refetchOnWindowFocus, retry, staleTime, etc.
       staleTime: 5 * 60 * 1000, // Data dianggap "fresh" selama 5 menit untuk menghemat kuota API
       gcTime: 10 * 60 * 1000,    // Cache disimpan di memori selama 10 menit (sebelum v5 bernama cacheTime)
       refetchOnWindowFocus: false, // Mencegah fetch ulang otomatis saat user berpindah tab browser

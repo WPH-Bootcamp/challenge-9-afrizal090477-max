@@ -10,7 +10,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Membungkus rute di dalam tata letak (Layout) utama */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/movie/:id" element={<MovieDetailPage />} />

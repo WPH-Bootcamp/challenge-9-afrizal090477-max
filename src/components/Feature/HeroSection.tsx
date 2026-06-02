@@ -23,7 +23,6 @@ export default function HeroSection({ movie }: HeroSectionProps) {
         backgroundImage: `linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%), url(${backdropUrl})`
       }}
     >
-      {/* Overlay gradien penyeimbang visual */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/50 to-transparent hidden sm:block" />
       <div className="absolute inset-0 bg-black/30 sm:hidden" />
 
@@ -34,15 +33,12 @@ export default function HeroSection({ movie }: HeroSectionProps) {
           <h1 className="text-2xl sm:text-5xl lg:text-[56px] font-bold tracking-[-0.02em] text-[#FDFDFD] font-display leading-tight drop-shadow-md line-clamp-1 sm:line-clamp-none">
             {movie.title}
           </h1>
-
-          {/* Kunci 2 baris di mobile agar space tombol di bawahnya aman */}
           <p className="text-sm sm:text-[16px] text-[#A4A7AE] font-normal leading-relaxed drop-shadow line-clamp-2 lg:line-clamp-none">
             {movie.overview}
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-start gap-3 sm:gap-[16px] w-full sm:w-auto">
-          {/* button watch trailer */}
           {trailerVideo ? (
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogTrigger asChild>
@@ -70,7 +66,6 @@ export default function HeroSection({ movie }: HeroSectionProps) {
               <span>Trailer Unavailable</span>
             </button>
           )}
-          {/* button see detail */}
           <button 
             onClick={() => navigate(`/movie/${movie.id}`)}
             className="flex items-center justify-center w-full sm:w-[230px] h-11 sm:h-[52px] bg-[#0A0D1299] backdrop-blur-[40px] hover:bg-zinc-900/60 text-[#FDFDFD] border border-[#181D27] font-semibold text-sm sm:text-[16px] rounded-full transition-all shadow-lg hover:scale-[1.01] active:scale-[0.99] cursor-pointer shrink-0"

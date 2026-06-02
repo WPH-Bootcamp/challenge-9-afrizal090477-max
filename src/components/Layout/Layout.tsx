@@ -11,13 +11,9 @@ export default function Layout() {
     <div className="min-h-screen bg-background text-foreground flex flex-col relative overflow-x-hidden antialiased">
       
       <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
-      {/* Main Viewport */}
       <main className="flex-1 w-full">
         <Outlet context={[searchQuery, setSearchQuery]} />
       </main>
-
-      
       <Footer />
       <Toaster />
     </div>

@@ -64,10 +64,8 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
       onClick={() => navigate(`/movie/${movie.id}`)}
       className="w-full h-auto bg-[#0A0D1299] border border-[#181D27] rounded-2xl p-4 md:p-5 flex flex-col md:flex-row justify-between items-stretch md:items-center group cursor-pointer hover:border-zinc-800 transition-all relative gap-4 md:gap-0"
     >
-      
       {/* ─── AREA DATA ATAS (POSTER + TEKS DESKRIPSI) ─── */}
       <div className="w-full md:w-[978px] flex flex-row gap-4 md:gap-6 items-start">
-        
         {/* POSTER */}
         <div className="w-[100px] sm:w-[130px] md:w-[182px] h-[150px] sm:h-[195px] md:h-[270px] rounded-xl overflow-hidden bg-zinc-900 border border-zinc-900 shrink-0 shadow-xl relative">
           <img
@@ -77,7 +75,6 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
             loading="lazy"
           />
         </div>
-
         {/* AREA DATA TEKS */}
         <div className="flex-1 flex flex-col gap-2 md:gap-6 justify-start pt-1 min-w-0 md:pr-12">
           <div className="flex flex-col gap-1 md:gap-3">
@@ -186,15 +183,10 @@ export default function Favorite() {
               />
             ))}
           </div>
-        ) : (
-          /* KONDISI DATA EMPTY: KALIBRASI PIXEL-PERFECT FIGMA & ONE LINE TEXT  */
-          
-          <div className="w-full max-w-[1160px] flex flex-col items-center justify-center py-24 text-center gap-6">
-            
-            {/* Pembungkus Gambar & Teks (width 246px, gap 16px) */}
+        ) : ( 
+          <div className="w-full max-w-[1160px] flex flex-col items-center justify-center py-24 text-center gap-6"> 
             <div className="flex flex-col items-center gap-4">
-              
-              {/* Tempat Gambar Utama Aset (width 200px, height 200px) */}
+              {/* Ilustrasi data kosong */}
               <div className="w-[200px] h-[200px] flex items-center justify-center relative bg-transparent overflow-hidden">
                 <img 
                   src={MovieEmptyImg} 
@@ -205,9 +197,7 @@ export default function Favorite() {
                 />
               </div>
 
-              {/* Kelompok Teks: Data Empty + Deskripsi (width 246px, height 66px, gap 8px) */}
               <div className="flex flex-col items-center gap-2">
-                {/* Judul: font-weight 600 (SemiBold), warna #FFFFFF */}
                 <h3 className="text-base md:text-lg font-semibold tracking-normal text-[#FFFFFF] font-body">
                   Data Empty
                 </h3>

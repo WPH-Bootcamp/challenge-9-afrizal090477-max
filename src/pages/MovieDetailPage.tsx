@@ -4,11 +4,8 @@ import { useMovieDetail } from '@/hooks/useMovies';
 import { useMovieStore } from '@/store/movieStore';
 import { getImageUrl } from '@/lib/utils';
 import { useToast } from '../hooks/use-toast';
-
-// Import sub-komponen bawaan sehati kelas industri asli dari folder Feature
 import MovieInfoSection from '@/components/Feature/MovieInfoSection';
 import MovieTabsSection from '@/components/Feature/MovieTabsSection';
-
 import type { Movie, Genre, Cast } from '@/types/movie';
 
 export default function MovieDetailPage() {
@@ -75,8 +72,6 @@ export default function MovieDetailPage() {
 
   return (
     <div className="w-full bg-black text-zinc-50 min-h-screen pb-20 select-none">
-      
-      {/* ─── AREA 1: BACKGROUND BACKDROP TOP HEIGHT  (h-[345px]) ─── */}
       <div className="relative h-[345px] md:h-[55vh] w-full overflow-hidden flex items-end">
         <div className="absolute inset-0 z-0">
           <img
@@ -84,12 +79,10 @@ export default function MovieDetailPage() {
             alt={movie.title}
             className="w-full h-full object-cover object-center"
           />
-          {/* Gradien overlay penutup top: 124px, height: 221px murni linear-gradient figma */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
       </div>
 
-      {/* ─── AREA 2: WRAPPER UTAMA KONTEN (top: 222px, padding-x: 16px, pb: 48px, gap: 24px) ─── */}
       <div className="w-full max-w-[1440px] mx-auto px-4 md:px-[140px] -translate-y-[123px] md:-translate-y-24 relative z-10 flex flex-col gap-6 md:gap-12">
         
         <MovieInfoSection 

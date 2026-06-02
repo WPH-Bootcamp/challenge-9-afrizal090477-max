@@ -16,7 +16,6 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
       className="flex flex-col gap-[8px] md:gap-[12px] min-w-[173px] w-[173px] md:min-w-[216px] md:w-[216px] h-[334px] md:h-[397px] select-none group cursor-pointer snap-start shrink-0"
       onClick={() => navigate(`/movie/${movie.id}`)}
     >
-      {/* ─── 1. AREA POSTER GAMBAR ─── */}
       <div className="relative w-full h-[266px] md:h-[321px] rounded-xl overflow-hidden bg-[#181D27] border border-transparent group-hover:border-zinc-700 transition-colors duration-300">
         <img
           src={getImageUrl(movie.poster_path, 'w342')} 
@@ -25,8 +24,6 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
           loading="lazy"
           draggable="false"
         />
-
-        {/* BADGE ANGKA PERINGKAT FIGMA */}
         {typeof index === 'number' && (
           <div className="absolute top-2 left-2 md:top-3 md:left-3 w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#181D27]/80 backdrop-blur-md flex items-center justify-center z-20">
             <span className="text-[#FDFDFD] font-bold text-xs md:text-sm leading-none">
@@ -36,7 +33,6 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
         )}
       </div>
 
-      {/* ─── 2. AREA DATA TEKS ─── */}
       <div className="w-full flex flex-col gap-[2px] justify-start h-[60px] md:h-[64px]">
         <h3 className="font-semibold md:font-bold text-[16px] md:text-[15px] text-[#FDFDFD] truncate tracking-tight group-hover:text-red-500 transition-colors leading-tight">
           {movie.title}
