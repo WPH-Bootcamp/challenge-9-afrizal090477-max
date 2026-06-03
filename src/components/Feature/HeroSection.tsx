@@ -28,7 +28,6 @@ export default function HeroSection({ movie }: HeroSectionProps) {
 
       <div className="absolute top-[180px] sm:top-auto left-4 sm:left-12 lg:pl-[140px] right-4 sm:right-auto z-10 flex flex-col gap-5 sm:gap-[48px] max-w-[775px] select-none animate-in fade-in slide-in-from-bottom-5 duration-700">
         
-        {/* WRAPPER TEKS */}
         <div className="flex flex-col gap-[16px] max-w-[635px]">
           <h1 className="text-2xl sm:text-5xl lg:text-[56px] font-bold tracking-[-0.02em] text-[#FDFDFD] font-display leading-tight drop-shadow-md line-clamp-1 sm:line-clamp-none">
             {movie.title}

@@ -8,6 +8,7 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isShiftActive, setIsShiftActive] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,12 +18,10 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ─── LOGO TANSTACK DEVTOOLS AUTOMATIC TOGGLE
   useEffect(() => {
     const devtoolsPanel = document.querySelector('.tsqd-parent-container') || 
                           document.querySelector('[id^="tanstack-query-devtools"]');
@@ -36,6 +35,16 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
     }
   }, [isMobileSearchOpen]);
 
+
+  const handleKeyClick = (key: string) => {
+    const char = isShiftActive ? key.toUpperCase() : key.toLowerCase();
+    setSearchQuery(searchQuery + char);
+    if (isShiftActive) {
+      setIsShiftActive(false);
+    }
+  };
+
+  
   return (
     <>
       <header 
@@ -46,8 +55,6 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
         }`}
       >
         <div className="w-full max-w-[1440px] mx-auto px-4 md:px-12 lg:px-[140px] flex items-center justify-between">
-          
-          {/* SISI KIRI: Logo & Navigasi Utama */}
           <div className="flex items-center gap-14">
             <NavLink to="/" className="flex items-center gap-2.5 text-[28.44px] font-semibold tracking-[-4%] text-[#FDFDFD] select-none">
               <img src={MovieLogo} alt="Movie App Logo" className="w-7 h-7 object-contain" draggable="false" />
@@ -60,7 +67,6 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
             </nav>
           </div>
 
-          {/* Box Pencarian/Search */}
           <div className="flex items-center gap-4">
             <div className="relative hidden md:block w-[243px] h-[56px]">
               <span className="absolute inset-y-0 left-4 flex items-center text-[#98A2B3] z-10">
@@ -73,7 +79,7 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-full bg-[#0A0D12] border border-[#252B37] rounded-xl pl-12 pr-10 text-sm text-white placeholder-[#98A2B3] focus:outline-none focus:border-zinc-600 transition-all shadow-xl relative z-0"
               />
-              {/* 'X' CLEAR BUTTON DI DEKSTOP */}
+
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
@@ -86,12 +92,10 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
               )}
             </div>
 
-            {/* Mobile Search Icon Trigger */}
             <button onClick={() => setIsMobileSearchOpen(true)} className="md:hidden text-zinc-300 hover:text-white p-2 transition-colors">
               <Search className="w-6 h-6" />
             </button>
 
-            {/* Hamburger Menu Button */}
             <button onClick={() => setIsMenuOpen(true)} className="md:hidden flex flex-col justify-center items-center p-2 text-zinc-100 cursor-pointer">
               <Menu className="w-6 h-6" />
             </button>
@@ -99,11 +103,8 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
         </div>
       </header>
 
-      {/* KEYBOARD VIRTUAL MOBILE */}
       {isMobileSearchOpen && (
         <div className="md:hidden fixed inset-0 z-[999] bg-[#0A0D12] flex flex-col justify-between animate-in fade-in duration-200">
-          
-          {/* Top Bar Input Mobile */}
           <div className="w-full bg-zinc-900/40 backdrop-blur-md border-b border-zinc-900 px-4 py-4 flex items-center gap-3">
             <button onClick={() => { setIsMobileSearchOpen(false); setSearchQuery(''); }} className="text-zinc-400 hover:text-white p-1">
               <ArrowLeft className="w-6 h-6" />
@@ -122,7 +123,6 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
                 autoFocus
               />
               
-              {/* CLEAR BUTTON MOBILE */}
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
@@ -136,37 +136,64 @@ export default function Navbar({ searchQuery, setSearchQuery }: NavbarProps) {
             </div>
           </div>
 
-          {/* Body Content Info */}
           <div className="flex-1 bg-[#0A0D12] px-4 py-4 overflow-y-auto">
             <p className="text-[10px] text-zinc-600 uppercase tracking-widest text-center mt-10">
               {searchQuery ? 'Searching for movies...' : 'Type keywords above'}
             </p>
           </div>
 
-          {/* STRUKTUR KEYBOARD */}
           <div className="w-full bg-[#1A1A1A] border-t border-zinc-900 p-1.5 space-y-3 select-none pb-5">
             <div className="flex justify-center gap-1.5">
               {['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map((k) => (
-                <button key={k} onClick={() => setSearchQuery(searchQuery + k)} className="flex-1 bg-[#444446] text-white text-[17px] py-2.5 rounded-md active:bg-zinc-600 shadow-sm uppercase font-normal">{k}</button>
+                <button 
+                  key={k} 
+                  onClick={() => handleKeyClick(k)} 
+                  className="flex-1 bg-[#444446] text-white text-[17px] py-2.5 rounded-md active:bg-zinc-600 shadow-sm font-normal text-center"
+                >
+                  {isShiftActive ? k.toUpperCase() : k.toLowerCase()}
+                </button>
               ))}
             </div>
+
             <div className="flex justify-center gap-1.5 px-3">
               {['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'].map((k) => (
-                <button key={k} onClick={() => setSearchQuery(searchQuery + k)} className="flex-1 bg-[#444446] text-white text-[17px] py-2.5 rounded-md active:bg-zinc-600 shadow-sm uppercase font-normal">{k}</button>
+                <button 
+                  key={k} 
+                  onClick={() => handleKeyClick(k)} 
+                  className="flex-1 bg-[#444446] text-white text-[17px] py-2.5 rounded-md active:bg-zinc-600 shadow-sm font-normal text-center"
+                >
+                  {isShiftActive ? k.toUpperCase() : k.toLowerCase()}
+                </button>
               ))}
             </div>
+
             <div className="flex justify-center gap-1.5">
-              <button className="w-12 bg-[#636366] text-white text-[17px] rounded-md flex items-center justify-center shadow-sm">⇧</button>
+              <button 
+                onClick={() => setIsShiftActive(!isShiftActive)} 
+                className={`w-12 text-[17px] rounded-md flex items-center justify-center shadow-sm transition-colors ${
+                  isShiftActive ? 'bg-white text-black' : 'bg-[#636366] text-white'
+                }`}
+              >
+                ⇧
+              </button>
               {['z', 'x', 'c', 'v', 'b', 'n', 'm'].map((k) => (
-                <button key={k} onClick={() => setSearchQuery(searchQuery + k)} className="flex-1 bg-[#444446] text-white text-[17px] py-2.5 rounded-md active:bg-zinc-600 shadow-sm uppercase font-normal">{k}</button>
+                <button 
+                  key={k} 
+                  onClick={() => handleKeyClick(k)} 
+                  className="flex-1 bg-[#444446] text-white text-[17px] py-2.5 rounded-md active:bg-zinc-600 shadow-sm font-normal text-center"
+                >
+                  {isShiftActive ? k.toUpperCase() : k.toLowerCase()}
+                </button>
               ))}
               <button onClick={() => setSearchQuery(searchQuery.slice(0, -1))} className="w-12 bg-[#636366] text-white text-lg rounded-md flex items-center justify-center active:bg-zinc-600 shadow-sm">⌫</button>
             </div>
+
             <div className="flex justify-center gap-1.5">
               <button className="w-20 bg-[#636366] text-white text-sm h-11 rounded-md flex items-center justify-center font-normal shadow-sm">123</button>
               <button onClick={() => setSearchQuery(searchQuery + ' ')} className="flex-1 bg-[#444446] text-white text-[16px] h-11 rounded-md flex items-center justify-center active:bg-zinc-600 shadow-sm">space</button>
               <button onClick={() => setIsMobileSearchOpen(false)} className="w-20 bg-[#636366] text-white text-sm h-11 rounded-md flex items-center justify-center font-normal shadow-sm active:bg-zinc-500">return</button>
             </div>
+
             <div className="w-full flex justify-between items-center px-6 pt-1">
               <button className="w-10 h-10 flex items-center justify-start text-zinc-300 text-2xl active:opacity-60 transition-opacity"><span>☺︎</span></button>
               <div className="w-36 h-1 bg-white/25 rounded-full" />

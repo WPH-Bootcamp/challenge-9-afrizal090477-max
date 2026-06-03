@@ -51,15 +51,14 @@ export interface Video {
   iso_639_1: string;
   iso_3166_1: string;
   name: string;
-  key: string; // ID Video YouTube (Contoh: d9MyW72ELq0)
-  site: string; // Biasanya "YouTube"
+  key: string; 
+  site: string; 
   size: number;
-  type: string; // "Trailer" | "Teaser" | "Clip"
+  type: string; 
   official: boolean;
   published_at: string;
 }
 
-// Interface gabungan lengkap untuk Movie Detail Page
 export interface MovieDetail extends Omit<Movie, 'genre_ids'> {
   genres: Genre[];
   budget: number;
@@ -78,7 +77,6 @@ export interface MovieDetail extends Omit<Movie, 'genre_ids'> {
     results: Movie[];
   };
   
-  /*  FITUR TAMBAHAN UNTUK FIGMA HERO BANNER */
   backdropPath?: string;  
   trailerUrl?: string;    
 }

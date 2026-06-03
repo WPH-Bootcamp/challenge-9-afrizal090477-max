@@ -16,7 +16,6 @@ export const movieService = {
     return data;
   },
 
-
   getMovieDetails: async (movieId: string | number): Promise<MovieDetail> => {
     const { data } = await api.get<MovieDetail>(`/movie/${movieId}`, {
       params: {
@@ -26,11 +25,8 @@ export const movieService = {
     return data;
   },
 
-  // Mencari film berdasarkan kata kunci (query)
   searchMovies: async (query: string, page = 1): Promise<MovieResponse> => {
     const trimmedQuery = query.trim();
-    
-    // Jika query kosong, kembalikan struktur respons kosong bawaan TMDB agar tidak crash
     if (!trimmedQuery) {
       return { page: 1, results: [], total_pages: 0, total_results: 0 };
     }

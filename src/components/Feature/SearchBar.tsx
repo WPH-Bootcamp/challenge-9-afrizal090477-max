@@ -2,6 +2,8 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
+
+
 const searchSchema = z.object({
   query: z
     .string()
@@ -11,7 +13,6 @@ const searchSchema = z.object({
 });
 
 type SearchFormValues = z.infer<typeof searchSchema>;
-
 interface SearchBarProps {
   onSearch: (query: string) => void;
   initialValue?: string;
@@ -41,6 +42,7 @@ export default function SearchBar({ onSearch, initialValue = '' }: SearchBarProp
     onSearch(data.query);
   };
 
+  
   return (
     <div className="w-full max-w-2xl mx-auto flex flex-col gap-1.5">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full flex items-center gap-2">

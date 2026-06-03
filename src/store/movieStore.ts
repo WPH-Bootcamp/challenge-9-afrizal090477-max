@@ -20,14 +20,11 @@ interface MovieStore {
 export const useMovieStore = create<MovieStore>()(
   persist(
     (set, get) => ({
-      // State Awal
       favorites: [],
       watchlist: [],
 
-      // Fitur Favorit (Bookmark)
       addFavorite: (movie) =>
         set((state) => ({
-          // Mencegah duplikasi data tidak sengaja di dalam array
           favorites: state.favorites.some((m) => m.id === movie.id)
             ? state.favorites
             : [...state.favorites, movie],
@@ -51,7 +48,6 @@ export const useMovieStore = create<MovieStore>()(
         return get().favorites.some((m) => m.id === movieId);
       },
 
-      // Fitur Watchlist (Daftar Tontonan)
       addToWatchlist: (movie) =>
         set((state) => ({
           watchlist: state.watchlist.some((m) => m.id === movie.id)
@@ -78,7 +74,6 @@ export const useMovieStore = create<MovieStore>()(
       },
     }),
     {
-      // Menggunakan nama key global karena menyimpan gabungan data favorites & watchlist
       name: 'movie-explorer-app-storage',
       storage: createJSONStorage(() => localStorage),
     }
