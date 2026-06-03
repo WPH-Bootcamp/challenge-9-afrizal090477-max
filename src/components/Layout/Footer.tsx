@@ -1,4 +1,4 @@
-import { Tv } from 'lucide-react'; // Menggunakan ikon TV bawaan untuk simbol logo
+import { Tv } from 'lucide-react'; 
 
 export default function Footer() {
   return (

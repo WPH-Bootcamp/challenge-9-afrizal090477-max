@@ -8,7 +8,7 @@ interface CastCardProps {
 export default function CastCard({ cast }: CastCardProps) {
   return (
     <div className="w-[360px] h-[104px] flex gap-4 items-center shrink-0">
-      {/* photo profile */}
+
       <div className="w-[69px] h-[104px] rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 shrink-0">
         <img
           src={getImageUrl(cast.profile_path, 'w185')}
@@ -17,7 +17,7 @@ export default function CastCard({ cast }: CastCardProps) {
           loading="lazy"
         />
       </div>
-      {/* DATA KREATOR */}
+
       <div className="w-[275px] h-[64px] flex flex-col gap-1 justify-center">
         <p className="font-semibold text-sm text-[#FDFDFD] font-body truncate">
           {cast.name}

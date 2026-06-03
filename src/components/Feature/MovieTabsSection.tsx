@@ -27,7 +27,7 @@ export default function MovieTabsSection({ movie, topCast, similarMovies }: Movi
         </TabsTrigger>
       </TabsList>
 
-      {/* OVERVIEW & CAST */}
+
       <TabsContent value="overview" className="flex flex-col gap-10 focus-visible:outline-none animate-in fade-in duration-300">
         <div className="w-full flex flex-col gap-2">
           <h2 className="text-xl font-bold tracking-[-2%] text-[#FDFDFD] font-display">Overview</h2>
@@ -49,7 +49,6 @@ export default function MovieTabsSection({ movie, topCast, similarMovies }: Movi
         </div>
       </TabsContent>
 
-      {/* SIMILAR MOVIES */}
       <TabsContent value="similar" className="focus-visible:outline-none animate-in fade-in duration-300">
         <div className="flex flex-col gap-6 w-full">
           {similarMovies.length > 0 ? (

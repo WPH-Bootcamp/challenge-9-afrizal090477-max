@@ -9,10 +9,9 @@ import type { Movie } from '@/types/movie';
 import MovieEmptyImg from '@/assets/movie.png';
 import { Button } from '@/components/ui/button';
 
-// ─── KOMPONEN: MENGAMBIL TRAILER HANYA SAAT MODAL DIBUKA (LAZY LOAD) ───
+
 function TrailerFetcher({ movieId, title }: { movieId: number; title: string }) {
   const { data: movieDetail, isLoading } = useMovieDetail(movieId.toString());
-
   if (isLoading) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-zinc-400">
@@ -25,7 +24,6 @@ function TrailerFetcher({ movieId, title }: { movieId: number; title: string }) 
   const trailerVideo = movieDetail?.videos?.results?.find(
     (v: { type: string; site: string; key: string }) => v.type === 'Trailer' && v.site === 'YouTube'
   );
-
   if (!trailerVideo) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-zinc-500">
@@ -64,9 +62,8 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
       onClick={() => navigate(`/movie/${movie.id}`)}
       className="w-full h-auto bg-[#0A0D1299] border border-[#181D27] rounded-2xl p-4 md:p-5 flex flex-col md:flex-row justify-between items-stretch md:items-center group cursor-pointer hover:border-zinc-800 transition-all relative gap-4 md:gap-0"
     >
-      {/* ─── AREA DATA ATAS (POSTER + TEKS DESKRIPSI) ─── */}
+
       <div className="w-full md:w-[978px] flex flex-row gap-4 md:gap-6 items-start">
-        {/* POSTER */}
         <div className="w-[100px] sm:w-[130px] md:w-[182px] h-[150px] sm:h-[195px] md:h-[270px] rounded-xl overflow-hidden bg-zinc-900 border border-zinc-900 shrink-0 shadow-xl relative">
           <img
             src={getImageUrl(movie.poster_path, 'w342')}
@@ -75,7 +72,7 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
             loading="lazy"
           />
         </div>
-        {/* AREA DATA TEKS */}
+
         <div className="flex-1 flex flex-col gap-2 md:gap-6 justify-start pt-1 min-w-0 md:pr-12">
           <div className="flex flex-col gap-1 md:gap-3">
             <h2 className="text-base md:text-[24px] font-bold text-[#FDFDFD] font-display tracking-tight truncate">
@@ -94,7 +91,6 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
             {movie.overview || 'Sinopsis cerita belum tersedia untuk katalog judul film ini.'}
           </p>
 
-          {/* TOMBOL TRAILER VERSION DESKTOP */}
           <div className="hidden md:block w-[200px] h-[52px] mt-2" onClick={(e) => e.stopPropagation()}>
             <Dialog open={isTrailerOpen} onOpenChange={setIsTrailerOpen}>
               <DialogTrigger asChild>
@@ -114,7 +110,6 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
 
       </div>
 
-      {/* LANTAI BAWAH: AKSI GRUP TOMBOL KHUSUS MODE MOBILE  */}
       <div className="flex md:hidden items-center gap-3 w-full border-t border-zinc-900/60 pt-3" onClick={(e) => e.stopPropagation()}>
         <Dialog open={isTrailerOpen} onOpenChange={setIsTrailerOpen}>
           <DialogTrigger asChild>
@@ -130,7 +125,6 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
           </DialogContent>
         </Dialog>
 
-        {/* HEART BUTTON DI SAMPING KANAN TRAILER (MOBILE VERSION) */}
         <Button
           variant="outline"
           size="icon"
@@ -141,7 +135,6 @@ function FavoriteMovieRow({ movie, onRemove }: FavoriteMovieRowProps) {
         </Button>
       </div>
 
-      {/* TOMBOL HEART UTK MODE DESKTOP */}
       <Button
         variant="outline"
         size="icon"

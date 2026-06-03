@@ -66,7 +66,6 @@ export default function Home() {
 
   useEffect(() => {
     handleScrollPosition();
-    // Pastikan panah dihitung ulang kalau ukuran layar di-resize
     window.addEventListener('resize', handleScrollPosition);
     return () => window.removeEventListener('resize', handleScrollPosition);
   }, [trendingMovies]);
@@ -90,8 +89,6 @@ export default function Home() {
 
   return (
     <div className="w-full bg-[#000000] text-white min-h-screen select-none animate-in fade-in duration-500">
-      
-      {/* TAMPILAN HASIL PENCARIAN FILM */}
       {isSearching ? (
         <div className="w-full max-w-[1440px] mx-auto px-4 md:px-12 lg:px-[140px] pt-[140px] md:pt-[170px] pb-24 space-y-10">
           <div className="flex flex-col gap-2 border-b border-zinc-900 pb-5">
@@ -123,23 +120,17 @@ export default function Home() {
         </div>
       ) : (
         
-        /* TAMPILAN NORMAL MULTI-SECTION (HOME) */
         <div className="space-y-16 pb-20 pt-0">
-          {/* Spanduk Hero Utama */}
           {heroMovieDetail && (
             <HeroSection movie={heroMovieDetail} />
           )}
 
-          {/* SECTION TRENDING NOW  */}
           <div className="w-full max-w-[1440px] mx-auto pl-4 md:pl-12 lg:pl-[140px] pr-0 flex flex-col gap-[24px] md:gap-[32px] relative group/section pt-4 md:pt-8">
-            
             <h2 className="text-[24px] md:text-[32px] font-bold tracking-tight text-[#FDFDFD]">
               Trending Now
             </h2>
             
             <div className="relative w-full">
-              
-              {/* TOMBOL KIRI */}
               {canScrollLeft && (
                 <div className="absolute left-[-16px] md:left-[-60px] lg:left-[-60px] top-0 bottom-0 w-[60px] md:w-[120px] bg-gradient-to-r from-[#000000] via-[#000000]/90 to-transparent z-20 pointer-events-none flex items-center justify-start md:justify-center pl-2 md:pl-0 animate-in fade-in duration-300">
                   <button 
@@ -151,7 +142,6 @@ export default function Home() {
                 </div>
               )}
 
-              {/* TOMBOL KANAN & BLUR KARTU KE-6 */}
               {canScrollRight && (
                 <div className="absolute right-0 top-0 bottom-0 w-[123px] md:w-[140px] bg-gradient-to-l from-[#000000] via-[#000000]/90 to-transparent z-20 pointer-events-none flex items-center justify-end md:justify-center pr-4 md:pr-[40px] animate-in fade-in duration-300">
                   <button 

@@ -43,7 +43,6 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
         />
       </div>
 
-      {/* REPLIKA POSTER + JUDUL (KHUSUS MOBILE VERSION) */}
       <div className="flex flex-row items-start gap-4 w-full md:hidden">
         <div className="w-[116px] h-[171px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl shrink-0">
           <img
@@ -65,7 +64,6 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
 
       <div className="w-full md:w-[868px] h-auto md:h-full flex flex-col gap-6 md:justify-between pt-0 md:pt-1">
         
-        {/* GRUP JUDUL DAN TANGGAL (HANYA MUNCUL DI DESKTOP AGAR TIDAK DUPLIKAT DENGAN MOBILE) */}
         <div className="hidden md:flex flex-col gap-2">
           <h1 className="text-xl md:text-[40px] lg:text-[48px] font-bold tracking-tight md:tracking-[-2%] text-[#FDFDFD] font-display leading-tight">
             {movie.title}
@@ -76,7 +74,6 @@ export default function MovieInfoSection({ movie, favoriteActive, onToggleFavori
           </div>
         </div>
 
-        {/* BARIS TOMBOL AKSI (Watch Trailer & Favorite) */}
         <div className="flex items-center gap-4 h-11 md:h-[52px]">
           {trailerVideo ? (
             <Dialog open={isTrailerOpen} onOpenChange={setIsTrailerOpen}>

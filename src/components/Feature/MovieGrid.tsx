@@ -1,6 +1,6 @@
-// Menggunakan relative import karena MovieCard berada di folder Feature yang sama
 import MovieCard from './MovieCard'; 
 import type { Movie } from '@/types/movie';
+
 
 interface MovieGridProps {
   movies: Movie[] | undefined;
